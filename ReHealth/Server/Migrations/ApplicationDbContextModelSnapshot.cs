@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReHealth.Server.Data;
 
-namespace ReHealth.Server.Data.Migrations
+namespace ReHealth.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -356,10 +356,18 @@ namespace ReHealth.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ExercisesId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExercisesId");
 
                     b.HasIndex("UserId");
 
@@ -434,11 +442,17 @@ namespace ReHealth.Server.Data.Migrations
 
             modelBuilder.Entity("ReHealth.Shared.SavedExercises", b =>
                 {
+                    b.HasOne("ReHealth.Shared.Exercises", "Exercises")
+                        .WithMany()
+                        .HasForeignKey("ExercisesId");
+
                     b.HasOne("ReHealth.Shared.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Exercises");
 
                     b.Navigation("User");
                 });
