@@ -88,9 +88,14 @@ namespace ReHealth.Server.Services.ExerciseService
         /// Get all the exercises
         /// </summary>
         /// <returns></returns>
-        public Task<ServiceResponse<List<Exercise>>> GetExercises()
+        public async Task<ServiceResponse<List<Exercise>>> GetExercises()
         {
-            throw new NotImplementedException();
+            var exercises = await _context.Exercise.ToListAsync();
+            var response = new ServiceResponse<List<Exercise>>
+            {
+                Data = exercises
+            };
+            return response;
         }
     }
 }
