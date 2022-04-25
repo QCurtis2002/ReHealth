@@ -25,8 +25,6 @@ namespace ReHealth.Server.Data
 
         }
 
-        public DbSet<User> User { get; set; }
-
         public DbSet<Exercise> Exercise { get; set; }
 
         public DbSet<SavedExercise> SavedExercise { get; set; }

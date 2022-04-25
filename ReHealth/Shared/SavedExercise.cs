@@ -9,8 +9,7 @@ namespace ReHealth.Shared
     public class SavedExercise
     {
         public int Id { get; set; }
-        public User User { get; set; }
-        public int UserId { get; set; }
+        public int AspNetUserId { get; set; }
         public Exercise Exercises { get; set; }
         public int ExerciseId { get; set; }
     }
