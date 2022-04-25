@@ -21,6 +21,9 @@ namespace ReHealth.Client
             builder.Services.AddHttpClient("ReHealth.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
+            builder.Services.AddHttpClient("WebAPI.NoAuthenticationClient",
+    client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("ReHealth.ServerAPI"));
 
