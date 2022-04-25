@@ -322,7 +322,7 @@ namespace ReHealth.Server.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("ReHealth.Shared.Exercises", b =>
+            modelBuilder.Entity("ReHealth.Shared.Exercise", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -332,13 +332,13 @@ namespace ReHealth.Server.Migrations
                     b.Property<string>("BodyPart")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Equipment")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Target")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("equipment")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("gifUrl")
@@ -346,10 +346,10 @@ namespace ReHealth.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercise");
                 });
 
-            modelBuilder.Entity("ReHealth.Shared.SavedExercises", b =>
+            modelBuilder.Entity("ReHealth.Shared.SavedExercise", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -359,19 +359,16 @@ namespace ReHealth.Server.Migrations
                     b.Property<int>("ExerciseId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ExercisesId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExercisesId");
+                    b.HasIndex("ExerciseId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SavedExercises");
+                    b.ToTable("SavedExercise");
                 });
 
             modelBuilder.Entity("ReHealth.Shared.User", b =>
@@ -440,11 +437,13 @@ namespace ReHealth.Server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ReHealth.Shared.SavedExercises", b =>
+            modelBuilder.Entity("ReHealth.Shared.SavedExercise", b =>
                 {
-                    b.HasOne("ReHealth.Shared.Exercises", "Exercises")
+                    b.HasOne("ReHealth.Shared.Exercise", "Exercises")
                         .WithMany()
-                        .HasForeignKey("ExercisesId");
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ReHealth.Shared.User", "User")
                         .WithMany()

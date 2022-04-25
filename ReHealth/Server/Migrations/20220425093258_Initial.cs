@@ -66,20 +66,20 @@ namespace ReHealth.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exercises",
+                name: "Exercise",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BodyPart = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    equipment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Equipment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     gifUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Target = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Exercises", x => x.Id);
+                    table.PrimaryKey("PK_Exercise", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,26 +222,25 @@ namespace ReHealth.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SavedExercises",
+                name: "SavedExercise",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    ExercisesId = table.Column<int>(type: "int", nullable: true),
                     ExerciseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SavedExercises", x => x.Id);
+                    table.PrimaryKey("PK_SavedExercise", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SavedExercises_Exercises_ExercisesId",
-                        column: x => x.ExercisesId,
-                        principalTable: "Exercises",
+                        name: "FK_SavedExercise_Exercise_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalTable: "Exercise",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SavedExercises_User_UserId",
+                        name: "FK_SavedExercise_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
@@ -314,13 +313,13 @@ namespace ReHealth.Server.Migrations
                 columns: new[] { "SubjectId", "SessionId", "Type" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_SavedExercises_ExercisesId",
-                table: "SavedExercises",
-                column: "ExercisesId");
+                name: "IX_SavedExercise_ExerciseId",
+                table: "SavedExercise",
+                column: "ExerciseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SavedExercises_UserId",
-                table: "SavedExercises",
+                name: "IX_SavedExercise_UserId",
+                table: "SavedExercise",
                 column: "UserId");
         }
 
@@ -348,7 +347,7 @@ namespace ReHealth.Server.Migrations
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
-                name: "SavedExercises");
+                name: "SavedExercise");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -357,7 +356,7 @@ namespace ReHealth.Server.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Exercises");
+                name: "Exercise");
 
             migrationBuilder.DropTable(
                 name: "User");
