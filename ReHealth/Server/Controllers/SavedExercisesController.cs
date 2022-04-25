@@ -21,8 +21,8 @@ namespace ReHealth.Server.Controllers
             _context = context;
         }
 
-        // GET: api/SavedExercises/5
-        [HttpGet("{id}")]
+        // GET: api/SavedExercises/{user}
+        [HttpGet("{user}")]
         public async Task<ServiceResponse<List<SavedExercise>>> GetSavedExercises(string user)
         {
             var response = new ServiceResponse<List<SavedExercise>>
