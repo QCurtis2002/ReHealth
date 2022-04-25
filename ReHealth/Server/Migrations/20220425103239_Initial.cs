@@ -103,19 +103,6 @@ namespace ReHealth.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AspNetUserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -227,7 +214,7 @@ namespace ReHealth.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    AspNetUserId = table.Column<int>(type: "int", nullable: false),
                     ExerciseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -237,12 +224,6 @@ namespace ReHealth.Server.Migrations
                         name: "FK_SavedExercise_Exercise_ExerciseId",
                         column: x => x.ExerciseId,
                         principalTable: "Exercise",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SavedExercise_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -316,11 +297,6 @@ namespace ReHealth.Server.Migrations
                 name: "IX_SavedExercise_ExerciseId",
                 table: "SavedExercise",
                 column: "ExerciseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SavedExercise_UserId",
-                table: "SavedExercise",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -357,9 +333,6 @@ namespace ReHealth.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Exercise");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }
