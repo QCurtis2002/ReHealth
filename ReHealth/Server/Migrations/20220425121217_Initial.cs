@@ -214,7 +214,7 @@ namespace ReHealth.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AspNetUserId = table.Column<int>(type: "int", nullable: false),
+                    AspNetUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExerciseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

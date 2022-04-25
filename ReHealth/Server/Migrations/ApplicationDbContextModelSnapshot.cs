@@ -356,8 +356,8 @@ namespace ReHealth.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AspNetUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("AspNetUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ExerciseId")
                         .HasColumnType("int");
