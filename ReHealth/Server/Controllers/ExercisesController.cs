@@ -23,7 +23,7 @@ namespace ReHealth.Server.Controllers
 
         // GET: api/Exercises
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Exercise>>> GetExercises()
+        public async Task<ActionResult<List<Exercise>>> GetExercises()
         {
             return await _context.Exercise.ToListAsync();
         }
