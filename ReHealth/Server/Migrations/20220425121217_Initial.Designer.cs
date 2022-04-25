@@ -10,7 +10,7 @@ using ReHealth.Server.Data;
 namespace ReHealth.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220425103239_Initial")]
+    [Migration("20220425121217_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -358,8 +358,8 @@ namespace ReHealth.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AspNetUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("AspNetUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ExerciseId")
                         .HasColumnType("int");
