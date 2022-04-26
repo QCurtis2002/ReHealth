@@ -9,24 +9,41 @@
 }
 else
 {
-    <ul class="list-unstyled">
-        @foreach (var exercise in exercises)
-        {
-            <li class="media my-3">
-                <div class="media-img-wrapper mr-2">
-                    <a href="/exercise/@exercise.Id">
-                        <img class="media-img" src="@exercise.gifUrl" alt="@exercise.Name">
-                    </a>
-                </div>
-                <div>
-                    <a href="/exercise/@exercise.Id">
-                        <h4 class="mb-0">@exercise.Name</h4>
-                    </a>
-                    <p>@exercise.Target</p>
-                </div>
-            </li>
-        }
-    </ul>
+    @*<ul class="list-unstyled">
+            @foreach (var exercise in exercises)
+            {
+                <li class="media my-3">
+                    <div class="media-img-wrapper mr-2">
+                        <a href="/exercise/@exercise.Id">
+                            <img class="media-img" src="@exercise.gifUrl" alt="@exercise.Name">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/exercise/@exercise.Id">
+                            <h4 class="mb-0">@exercise.Name</h4>
+                        </a>
+                        <p>@exercise.Target</p>
+                    </div>
+                </li>
+            }
+        </ul>*@
+
+    @foreach (var exercise in exercises)
+    {
+
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="@exercise.gifUrl" alt="@exercise.Name">
+            <div class="card-body">
+                <h5 class="card-title">@exercise.Name</h5>
+                <p class="card-text">Equipment: @exercise.Equipment</p>
+                <p class="card-text">Target: @exercise.Target</p>
+                <p class="card-text">BodyPart: @exercise.BodyPart</p>
+                <a href="/exercise/@exercise.Id" class="btn btn-primary">Checkout this exercise!</a>
+            </div>
+        </div>
+    }
+
+
 }
 
 
