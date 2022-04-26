@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ReHealth.Client.Services.ExerciseService;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -28,6 +29,8 @@ namespace ReHealth.Client
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("ReHealth.ServerAPI"));
 
             builder.Services.AddApiAuthorization();
+
+            builder.Services.AddScoped<IExerciseService, ExerciseService>();
 
             await builder.Build().RunAsync();
         }
