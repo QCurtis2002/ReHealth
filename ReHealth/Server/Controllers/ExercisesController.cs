@@ -23,9 +23,21 @@ namespace ReHealth.Server.Controllers
 
         // GET: api/Exercises
         [HttpGet]
-        public async Task<ActionResult<List<Exercise>>> GetExercises()
+        public async Task<ServiceResponse<List<Exercise>>> GetExercises()
         {
-            return await _context.Exercise.ToListAsync();
+            var response = new ServiceResponse<List<Exercise>>
+            {
+                Data = await _context.Exercise.ToListAsync()
+
+            };
+
+            if (response.Data == null || response.Data.Count == 0)
+            {
+                response.Message = "There are no exercises available";
+                response.Success = false;
+            }
+
+            return response;
         }
 
         // GET: api/Exercises/5
