@@ -28,22 +28,37 @@ else
             }
         </ul>*@
 
-    @foreach (var exercise in exercises)
-    {
+    @*@foreach (var exercise in exercises)
+        {
 
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="@exercise.gifUrl" alt="@exercise.Name">
-            <div class="card-body">
-                <h5 class="card-title">@exercise.Name</h5>
-                <p class="card-text">Equipment: @exercise.Equipment</p>
-                <p class="card-text">Target: @exercise.Target</p>
-                <p class="card-text">BodyPart: @exercise.BodyPart</p>
-                <a href="/exercise/@exercise.Id" class="btn btn-primary">Checkout this exercise!</a>
+            <div class="container-fluid card" style="width: 18rem;">
+                <img class="card-img-top" src="@exercise.gifUrl" alt="@exercise.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@exercise.Name</h5>
+                    <p class="card-text">Equipment: @exercise.Equipment</p>
+                    <p class="card-text">Target: @exercise.Target</p>
+                    <p class="card-text">BodyPart: @exercise.BodyPart</p>
+                    <a href="/exercise/@exercise.Id" class="btn btn-primary">Checkout this exercise!</a>
+                </div>
             </div>
+        }*@
+    <center>
+        <div class="row">
+            @foreach (var exercise in exercises)
+            {
+                <div class="col-sm-3 card" style="width: 18rem; margin:10px; flex:auto; ">
+                    <img class="card-img-top" src="@exercise.gifUrl" alt="@exercise.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@exercise.Name</h5>
+                        <p class="card-text">Equipment: @exercise.Equipment</p>
+                        <p class="card-text">Target: @exercise.Target</p>
+                        <p class="card-text">BodyPart: @exercise.BodyPart</p>
+                        <a href="/exercise/@exercise.Id" class="btn btn-primary">Checkout this exercise!</a>
+                    </div>
+                </div>
+            }
         </div>
-    }
-
-
+    </center>
 }
 
 
