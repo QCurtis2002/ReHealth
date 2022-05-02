@@ -1,9 +1,29 @@
 ﻿@page "/Exercises"
+@page "/Exercises/{type}/{filter}"
+
+@inject IExerciseService ExerciseService
 
 <h1>Exercises</h1>
 
 <ExerciseList />
 
 @code {
-    
+    [Parameter]
+    public string Type { get; set; }
+
+    [Parameter]
+    public string Filter { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Type == null || Filter == null)
+        {
+            await ExerciseService.GetExercises();
+        }
+        else
+        {
+            await ExerciseService.GetExercises(Type, Filter);
+        }
+
+    }
 }

@@ -1,7 +1,48 @@
 ﻿@page "/exercise/{id:int}"
+@inject IExerciseService ExerciseService
 
 <h3>ExerciseDetails</h3>
 
-@code {
+@if (exercise == null)
+{
+    <span>@message</span>
+}
+else
+{
+    <div class="media">
+        <div class="media-img-wrapper mr-2">
+            <img class="media-img" src="@exercise.gifUrl" alt="@exercise.Name" />
+        </div>
+        <div class="media-body">
+            <h1 class="mb-0" style="text-align:center">@exercise.Name</h1>
+            <h3>BodyPart: @exercise.BodyPart</h3>
+            <h3>Equipment: @exercise.Equipment</h3>
+            <h3>Target: @exercise.Target</h3>
+        </div>
+    </div>
+}
 
+
+@code {
+    private Exercise exercise = null;
+
+    private string message;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        message = "Loading Exercise...";
+
+        var result = await ExerciseService.GetExerciseById(Id);
+        if (!result.Success)
+        {
+            message = result.Message;
+        }
+        else
+        {
+            exercise = result.Data;
+        }
+    }
 }

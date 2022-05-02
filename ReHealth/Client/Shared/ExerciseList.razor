@@ -3,48 +3,15 @@
 
 <h3>ExerciseList</h3>
 
-@if (exercises == null)
+@if (ExerciseService.Exercises == null || ExerciseService.Exercises.Count == 0)
 {
-    <p>@Message</p>
+    <p>@ExerciseService.Message</p>
 }
 else
 {
-    @*<ul class="list-unstyled">
-            @foreach (var exercise in exercises)
-            {
-                <li class="media my-3">
-                    <div class="media-img-wrapper mr-2">
-                        <a href="/exercise/@exercise.Id">
-                            <img class="media-img" src="@exercise.gifUrl" alt="@exercise.Name">
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/exercise/@exercise.Id">
-                            <h4 class="mb-0">@exercise.Name</h4>
-                        </a>
-                        <p>@exercise.Target</p>
-                    </div>
-                </li>
-            }
-        </ul>*@
-
-    @*@foreach (var exercise in exercises)
-        {
-
-            <div class="container-fluid card" style="width: 18rem;">
-                <img class="card-img-top" src="@exercise.gifUrl" alt="@exercise.Name">
-                <div class="card-body">
-                    <h5 class="card-title">@exercise.Name</h5>
-                    <p class="card-text">Equipment: @exercise.Equipment</p>
-                    <p class="card-text">Target: @exercise.Target</p>
-                    <p class="card-text">BodyPart: @exercise.BodyPart</p>
-                    <a href="/exercise/@exercise.Id" class="btn btn-primary">Checkout this exercise!</a>
-                </div>
-            </div>
-        }*@
     <center>
         <div class="row">
-            @foreach (var exercise in exercises)
+            @foreach (var exercise in ExerciseService.Exercises)
             {
                 <div class="col-sm-3 card" style="width: 18rem; margin:10px; flex:auto; ">
                     <img class="card-img-top" src="@exercise.gifUrl" alt="@exercise.Name">
@@ -63,19 +30,13 @@ else
 
 
 @code {
-    private List<Exercise> exercises;
-
-    public string Message { get; set; } = "Loading exercises...";
-
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        var response = await ExerciseService.GetExercises();
-        if (!response.Success)
-        {
-            Message = response.Message;
-        }
-        exercises = response.Data;
+        ExerciseService.ExercisesChanged += StateHasChanged;
+    }
 
-
+    public void Dispose()
+    {
+        ExerciseService.ExercisesChanged -= StateHasChanged;
     }
 }

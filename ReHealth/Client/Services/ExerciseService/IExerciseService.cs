@@ -9,7 +9,11 @@ namespace ReHealth.Client.Services.ExerciseService
     public interface IExerciseService
     {
         event Action ExercisesChanged;
-        Task<ServiceResponse<Exercise>> GetExerciseById(int Id);
-        Task<ServiceResponse<List<Exercise>>> GetExercises();
+        string Message { get; set; }
+        List<Exercise> Exercises { get; set; }
+        Task<ServiceResponse<Exercise>> GetExerciseById(int id);
+        //Task<ServiceResponse<List<Exercise>>> GetExercises();
+        Task GetExercises(string type = null, string filter = null);
+
     }
 }
