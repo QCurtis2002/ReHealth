@@ -3,26 +3,16 @@
 
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
-@*<AuthorizeView>
-        <Authorized>
-            <a href="authentication/profile">Hello, @context.User.Identity.Name!</a>
-            <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
-        </Authorized>
-        <NotAuthorized>
-            <a href="authentication/register">Register</a>
-            <a href="authentication/login">Log in</a>
-        </NotAuthorized>
-    </AuthorizeView>*@
-
 
 <AuthorizeView>
     <Authorized>
         <div class="dropdown">
-            <a href="authentication/profile">@context.User.Identity.Name</a>
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img class="oi oi-person">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item-text" href="authentication/profile">My Account</a>
                 <a class="dropdown-item-text" href="" @onclick="BeginSignOut">Log out</a>
             </div>
         </div>
