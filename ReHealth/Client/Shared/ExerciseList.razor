@@ -1,4 +1,5 @@
 ﻿@inject IExerciseService ExerciseService
+@inject NavigationManager NavigationManager
 
 
 <h3>ExerciseList</h3>
@@ -9,6 +10,71 @@
 }
 else
 {
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand">Filter</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Equipment
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/exercises/equipment/body weight">Body Weight</a>
+                        <a class="dropdown-item" href="/exercises/equipment/cable">Cable</a>
+                        <a class="dropdown-item" href="/exercises/equipment/assisted">Assisted</a>
+                        <a class="dropdown-item" href="/exercises/equipment/medicine ball">Medicine Ball</a>
+                        <a class="dropdown-item" href="/exercises/equipment/band">Band</a>
+                        <a class="dropdown-item" href="/exercises/equipment/barbell">Barbell</a>
+                        <a class="dropdown-item" href="/exercises/equipment/dumbbell">Dumbbell</a>
+                        <a class="dropdown-item" href="/exercises/equipment/kettlebell">Kettlebell</a>
+                        <a class="dropdown-item" href="/exercises/equipment/leverage machine">Leverage Machine</a>
+                        <a class="dropdown-item" href="/exercises/equipment/rope">Rope</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Target
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/exercises/target/abs">Abs</a>
+                        <a class="dropdown-item" href="/exercises/target/biceps">Biceps</a>
+                        <a class="dropdown-item" href="/exercises/target/triceps">Triceps</a>
+                        <a class="dropdown-item" href="/exercises/target/lats">Lats</a>
+                        <a class="dropdown-item" href="/exercises/target/calves">Calves</a>
+                        <a class="dropdown-item" href="/exercises/target/glutes">Glutes</a>
+                        <a class="dropdown-item" href="/exercises/target/pectorals">Pectorals</a>
+                        <a class="dropdown-item" href="/exercises/target/hamstrings">Hamstrings</a>
+                        <a class="dropdown-item" href="/exercises/target/quads">Quads</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        BodyPart
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/exercises/bodypart/waist">Waist</a>
+                        <a class="dropdown-item" href="/exercises/bodypart/upper legs">Upper Legs</a>
+                        <a class="dropdown-item" href="/exercises/bodypart/lower legs">Lower Legs</a>
+                        <a class="dropdown-item" href="/exercises/bodypart/back">Back</a>
+                        <a class="dropdown-item" href="/exercises/bodypart/chest">Chest</a>
+                        <a class="dropdown-item" href="/exercises/bodypart/upper arms">Upper Arms</a>
+                        <a class="dropdown-item" href="/exercises/bodypart/shoulders">Shoulders</a>
+                    </div>
+                </li>
+                @if ((NavigationManager.BaseUri + "exercises") != NavigationManager.Uri)
+                {
+                    <li class="nav-item" style="">
+                        <a class="nav-link" href="/exercises">Reset Filter</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+
     <center>
         <div class="row">
             @foreach (var exercise in ExerciseService.Exercises)
@@ -20,7 +86,7 @@ else
                         <p class="card-text">Equipment: @exercise.Equipment</p>
                         <p class="card-text">Target: @exercise.Target</p>
                         <p class="card-text">BodyPart: @exercise.BodyPart</p>
-                        <a href="/exercise/@exercise.Id" class="btn btn-primary">Checkout this exercise!</a>
+                        <a href="/exercise/@exercise.Id" class="btn btn-primary btn-checkout">Checkout this exercise!</a>
                     </div>
                 </div>
             }

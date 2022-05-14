@@ -39,7 +39,7 @@
     justify-content: center;
 }
 
-img {
+.img {
     max-width: 200px;
     max-height: 200px;
     border-radius: 6px;
@@ -47,9 +47,11 @@ img {
     margin-bottom: 10px;
 }
 
-    img:hover {
-        transform: scale(1.1) rotate(5deg);
-    }
+.btn-primary:hover{
+    transform: scale(1.1);
+}
+
+
 
 .featured-product {
     margin: 10px;

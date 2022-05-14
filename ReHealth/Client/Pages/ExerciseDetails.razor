@@ -9,15 +9,17 @@
 }
 else
 {
-    <div class="media">
-        <div class="media-img-wrapper mr-2">
-            <img class="media-img" src="@exercise.gifUrl" alt="@exercise.Name" />
-        </div>
-        <div class="media-body">
-            <h1 class="mb-0" style="text-align:center">@exercise.Name</h1>
-            <h3>BodyPart: @exercise.BodyPart</h3>
-            <h3>Equipment: @exercise.Equipment</h3>
-            <h3>Target: @exercise.Target</h3>
+    <h1 class="mb-0 text-center font-weight-bold">@exercise.Name</h1>
+    <div class="media align-items-center">
+        <div style="margin:auto">
+            <div class="media-img-wrapper mr-2">
+                <img class="media-img border" src="@exercise.gifUrl" alt="@exercise.Name" />
+            </div>
+            <div class="media-body">
+                <h3>BodyPart: @exercise.BodyPart</h3>
+                <h3>Equipment: @exercise.Equipment</h3>
+                <h3>Target: @exercise.Target</h3>
+            </div>
         </div>
     </div>
 }
