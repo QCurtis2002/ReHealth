@@ -12,5 +12,7 @@ namespace ReHealth.Shared
         public string AspNetUser { get; set; }
         public Exercise Exercises { get; set; }
         public int ExerciseId { get; set; }
+        public string ExerciseGifUrl { get; set; }
+        public string ExerciseName { get; set; }
     }
 }

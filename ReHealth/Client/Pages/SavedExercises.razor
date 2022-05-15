@@ -1,0 +1,54 @@
+﻿@page "/savedexercises"
+@inject ISavedExerciseService SavedExerciseService
+@inject IExerciseService ExerciseService
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+@using ReHealth.Shared
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+
+<h3>SavedExercises</h3>
+
+@if (savedExercises == null || savedExercises.Count == 0)
+{
+    <p>No saved exercises available!</p>
+}
+else
+{
+<div>
+    @foreach (var exercise in savedExercises)
+    {
+        <div class="container">
+            <div class="image-wrapper">
+                <img src="@exercise.ExerciseGifUrl" class="image" />
+            </div>
+            <div class="name">
+                <h5><a href="/exercise/@exercise.ExerciseId">@exercise.ExerciseName</a></h5>
+            </div>
+            <button class="btn-delete" @onclick="@(() => DeleteSavedExercise(exercise))">Remove from saved exercises</button>
+        </div>
+    }
+</div>
+}
+
+@code {
+
+    List<SavedExercise> savedExercises = new List<SavedExercise>();
+
+    public string user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        user = authstate.User.Identity.Name;
+
+        savedExercises = await SavedExerciseService.GetSavedExercises(user);
+    }
+
+    private async Task DeleteSavedExercise(SavedExercise savedExercise)
+    {
+        await SavedExerciseService.DeleteSavedExercise(savedExercise.Id);
+        savedExercises = await SavedExerciseService.GetSavedExercises(user);
+    }
+
+}

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ReHealth.Client.Services.ExerciseService;
+using ReHealth.Client.Services.SavedExerciseService;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -31,6 +32,7 @@ namespace ReHealth.Client
             builder.Services.AddApiAuthorization();
 
             builder.Services.AddScoped<IExerciseService, ExerciseService>();
+            builder.Services.AddScoped<ISavedExerciseService, SavedExerciseService>();
 
             await builder.Build().RunAsync();
         }
