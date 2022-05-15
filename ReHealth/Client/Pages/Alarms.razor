@@ -1,0 +1,72 @@
+﻿@page "/alarm"
+
+<h1 class="text-center font-weight-bold">Alarm</h1>
+
+<h2 class="text-center">Current Time: @time.ToLongTimeString()</h2>
+
+
+
+<div class="text-center">
+    <label for="appt">Set an Alarm:</label>
+    <input type="time" id="alarm" name="alarm" @bind-value="alarmTime"
+           required>
+    @if (alarmTime.Year == 0001)
+    {
+        <small> Alarm has not been set</small>
+    }
+    else
+    {
+        <small> Alarm set for @alarmTime.DayOfWeek @(alarmTime.Day+"th") at @alarmTime.ToShortTimeString()</small>
+        <small> <button class="btn-primary" @onclick="@TurnOffAlarm">Turn off alarm</button></small>
+    }
+
+    <p>@activeAlarm</p>
+    <p>@time.ToShortTimeString()</p>
+    <p>@alarmTime.ToShortTimeString()</p>
+
+</div>
+
+@code {
+    System.Threading.Timer timer;
+    double hr, min, sec;
+
+    DateTime alarmTime = new DateTime();
+
+    DateTime time = DateTime.Now;
+
+    bool activeAlarm = true;
+
+    private void SetClock(object stateInfo)
+    {
+        time = DateTime.Now;
+        hr = time.Hour;
+        min = time.Minute;
+        sec = time.Second;
+
+        if (time.ToShortTimeString() == alarmTime.ToShortTimeString() && time.Second == 00)
+        {
+            activeAlarm = true;
+            
+        }
+
+        StateHasChanged();
+    }
+
+    private void TurnOffAlarm()
+    {
+        if (activeAlarm)
+        {
+            activeAlarm = false;
+
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        SetClock(null);
+
+        timer = new System.Threading.Timer(SetClock, new System.Threading.AutoResetEvent(false), 10, 10); // 10 milliseconds
+    }
+}
