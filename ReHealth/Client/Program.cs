@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,7 @@ namespace ReHealth.Client
 
             builder.Services.AddScoped<IExerciseService, ExerciseService>();
             builder.Services.AddScoped<ISavedExerciseService, SavedExerciseService>();
+            builder.Services.AddBlazoredToast();
 
             await builder.Build().RunAsync();
         }

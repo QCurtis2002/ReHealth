@@ -10,7 +10,7 @@ namespace ReHealth.Client.Services.SavedExerciseService
     {
         event Action OnChange;
         Task<List<SavedExercise>> GetSavedExercises(string user);
-        Task AddSavedExercise(SavedExercise savedExercise);
+        Task AddSavedExercise(Exercise exercise, string user);
         Task DeleteSavedExercise(int id);
     }
 }
