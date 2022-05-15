@@ -1,4 +1,4 @@
-﻿@page "/alarm"
+@page "/alarm"
 
 <h1 class="text-center font-weight-bold">Alarm</h1>
 
@@ -17,12 +17,11 @@
     else
     {
         <small> Alarm set for @alarmTime.DayOfWeek @(alarmTime.Day+"th") at @alarmTime.ToShortTimeString()</small>
-        <small> <button class="btn-primary" @onclick="@TurnOffAlarm">Turn off alarm</button></small>
+        @if (activeAlarm)
+        {
+            <small><button class="btn-primary" @onclick="@TurnOffAlarm">Turn off alarm</button></small>
+        }
     }
-
-    <p>@activeAlarm</p>
-    <p>@time.ToShortTimeString()</p>
-    <p>@alarmTime.ToShortTimeString()</p>
 
 </div>
 
@@ -34,7 +33,7 @@
 
     DateTime time = DateTime.Now;
 
-    bool activeAlarm = true;
+    bool activeAlarm = false;
 
     private void SetClock(object stateInfo)
     {
@@ -46,7 +45,7 @@
         if (time.ToShortTimeString() == alarmTime.ToShortTimeString() && time.Second == 00)
         {
             activeAlarm = true;
-            
+
         }
 
         StateHasChanged();
