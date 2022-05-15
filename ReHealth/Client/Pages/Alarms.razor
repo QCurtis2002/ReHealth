@@ -1,4 +1,5 @@
 @page "/alarm"
+@inject IJSRuntime _jsRuntime;
 
 <h1 class="text-center font-weight-bold">Alarm</h1>
 
@@ -19,9 +20,11 @@
         <small> Alarm set for @alarmTime.DayOfWeek @(alarmTime.Day+"th") at @alarmTime.ToShortTimeString()</small>
         @if (activeAlarm)
         {
-            <small><button class="btn-primary" @onclick="@TurnOffAlarm">Turn off alarm</button></small>
+            <small><button class="btn-primary" @onclick="@PauseSound">Turn off alarm</button></small>
         }
     }
+
+    <audio id="alarm" src="..\audio\Alarm.mp3" loop="loop" />
 
 </div>
 
@@ -35,6 +38,17 @@
 
     bool activeAlarm = false;
 
+    public async Task PlaySound()
+    {
+        await _jsRuntime.InvokeAsync<string>("PlayAudio", "alarm");
+    }
+
+    public async Task PauseSound()
+    {
+        await _jsRuntime.InvokeAsync<string>("PauseAudio", "alarm");
+        activeAlarm = false;
+    }
+
     private void SetClock(object stateInfo)
     {
         time = DateTime.Now;
@@ -45,19 +59,11 @@
         if (time.ToShortTimeString() == alarmTime.ToShortTimeString() && time.Second == 00)
         {
             activeAlarm = true;
+            PlaySound();
 
         }
 
         StateHasChanged();
-    }
-
-    private void TurnOffAlarm()
-    {
-        if (activeAlarm)
-        {
-            activeAlarm = false;
-
-        }
     }
 
     protected override async Task OnInitializedAsync()
