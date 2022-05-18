@@ -20,7 +20,7 @@
         <small> Alarm set for @alarmTime.DayOfWeek @(alarmTime.Day+"th") at @alarmTime.ToShortTimeString()</small>
         @if (activeAlarm)
         {
-            <button class="btn-primary" @onclick="@PauseSound">Turn off alarm</button>
+            <br /><button class="btn-primary" @onclick="@PauseSound">Turn off alarm</button>
         }
     }
 
